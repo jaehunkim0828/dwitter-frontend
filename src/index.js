@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Socket from './network/socket.js';
+import TokenStorage from './db/token.js';
+
+const tokenStorage = new TokenStorage();
+const socketClient = new Socket('http://localhost:8080', () => tokenStorage.getToken());
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App socketClient={socketClient}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
